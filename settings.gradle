@@ -1,0 +1,6 @@
+rootProject.name = 'adonistrack-multi-module'
+
+include 'adonistrack'
+include 'adonistrack-springweb'
+include 'adonistrack-ui'
+include 'adonistrack-usecase'

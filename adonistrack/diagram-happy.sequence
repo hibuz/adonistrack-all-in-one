@@ -1,0 +1,8 @@
+User->Application: GET /greeting/1
+Application->GreetingController: greeting(1)
+GreetingController->GreetingService: greeting(1)
+GreetingService->GreetingRepository: findById(1)
+GreetingRepository-->GreetingService: Optional[Greeting(id=1, ..)]
+GreetingService-->GreetingController: Greeting(id=1, ..)
+GreetingController-->Application: Greeting(id=1, ..)
+Application-->User: 200

@@ -1,0 +1,27 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.18'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.woozooha'
+version = '2.0.29'
+
+java {
+  toolchain {
+	languageVersion = JavaLanguageVersion.of(17)
+  }
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.webjars:webjars-locator-core:0.59'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}

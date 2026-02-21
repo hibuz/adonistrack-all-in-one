@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdonisTrack - Invocations</title>
+    <link rel="stylesheet" href="../3rd-party/bootstrap/5.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../3rd-party/fontawesome/5.15.4/css/all.min.css">
+    <style >
+        .btn-get {
+            color: #fff;
+            background-color: #61affe;
+            border-color: #61affe;
+        }
+        .btn-post {
+            color: #fff;
+            background-color: #49cc90;
+            border-color: #49cc90;
+        }
+        .btn-put {
+            color: #fff;
+            background-color: #fca130;
+            border-color: #fca130;
+        }
+        .btn-patch {
+            color: #fff;
+            background-color: #50e3c2;
+            border-color: #50e3c2;
+        }
+        .btn-delete {
+            color: #fff;
+            background-color: #f93e3e;
+            border-color: #f93e3e;
+        }
+        .btn-warning {
+            color: #000000;
+            background-color: #ffde00;
+            border-color: #6c757d;
+        }
+    </style>
+    <script type="text/javascript" src="../3rd-party/bootstrap/5.1.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../3rd-party/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../3rd-party/vue-js/2.6.12/vue.js"></script>
+    <script type="text/javascript" src="../js/global.js"></script>
+    <script type="text/javascript" src="../js/adonis-track.js"></script>
+    <script type="text/javascript" src="../3rd-party/mermaid/mermaid.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <a class="navbar-brand" href="invocations.html"><span class="h3">AdonisTrack</span></a>
+</nav>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="mermaid">{{ mermaidSequence }}</div>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th colspan="2">Invocation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th class="thead-light col-3">Id</th>
+                <td class="col-9"><a v-bind:href="'/adonis-track/invocations/' + id" target="_blank">{{ id }}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <button class="nav-link active" id="web-tab"      data-bs-toggle="tab" data-bs-target="#web-info"        type="button" role="tab" aria-controls="web"     >Request / Response</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link"        id="sequence-tab" data-bs-toggle="tab" data-bs-target="#sequence-info"   type="button" role="tab" aria-controls="sequence">Sequence(Detail)</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link"        id="json-tab"     data-bs-toggle="tab" data-bs-target="#invocation-info" type="button" role="tab" aria-controls="invocation">Invocation(JSON)</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link"        id="mermaid-tab"  data-bs-toggle="tab" data-bs-target="#mermaid-info"    type="button" role="tab" aria-controls="mermaid" >Mermaid(Markup)</button>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-2">
+
+        <div class="tab-pane fade show active" id="web-info">
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Request</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th class="thead-light col-3">Method</th>
+                        <td class="col-9">{{ request.method }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">URI</th>
+                        <td class="col-9">{{ request.requestURI }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">Query string</th>
+                        <td class="col-9">{{ request.queryString }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">Headers</th>
+                        <td class="col-9">{{ request.headers }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">Payload</th>
+                        <td class="col-9">{{ request.payload }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Response</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th class="thead-light col-3">Status</th>
+                        <td class="col-9">{{ response.status }} {{ response.reasonPhrase }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">Headers</th>
+                        <td class="col-9">{{ response.headers }}</td>
+                    </tr>
+                    <tr>
+                        <th class="thead-light col-3">Payload</th>
+                        <td class="col-9">{{ response.payload }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="sequence-info">
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+
+                        <th>From</th>
+                        <th>To</th>
+
+                        <th>Method</th>
+                        <th>Value type</th>
+                        <th>Value(toString)</th>
+
+                        <th>Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(invocation, index) in invocations">
+                        <td class="">{{ index + 1 }}</td>
+                        <td>{{ invocation.type }}</td>
+
+                        <td class="">{{ invocation.from }}</td>
+                        <td class="">{{ invocation.to }}</td>
+
+                        <td class="">{{ invocation.method }}</td>
+                        <td class="">{{ invocation.valueType }}</td>
+                        <td class="">{{ invocation.value }}</td>
+
+                        <td class="">{{ invocation.duration }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="invocation-info">
+            <div class="row">
+                <pre>{{ json }}</pre>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="mermaid-info">
+            <div class="row">
+                <pre>{{ mermaidSequence }}</pre>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="../js/invocation-test.js"></script>
+<script>
+    const config = {
+        startOnLoad: true,
+        theme: 'forest',
+        sequence:{
+            useMaxWidth: false,
+            showSequenceNumbers: true
+        },
+        securityLevel: 'loose',
+    };
+    mermaid.initialize(config);
+</script>
+</body>
+</html>

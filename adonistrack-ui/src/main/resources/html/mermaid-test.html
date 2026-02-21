@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdonisTrack - Mermaid</title>
+    <link rel="stylesheet" href="../3rd-party/bootstrap/5.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../3rd-party/fontawesome/5.15.4/css/all.min.css">
+    <style>
+        .cssClass > rect{
+            fill:#FF0000;
+            stroke:#FFFF00;
+            stroke-width:4px;
+        }
+    </style>
+    <script type="text/javascript" src="../3rd-party/bootstrap/5.1.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../3rd-party/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../3rd-party/vue-js/2.6.12/vue.js"></script>
+    <script type="text/javascript" src="../js/global.js"></script>
+    <script type="text/javascript" src="../js/adonis-track.js"></script>
+    <script type="text/javascript" src="../3rd-party/mermaid/mermaid.min.js"></script>
+    <script type="text/javascript">
+        const callback = function() {
+            alert('A callback was triggered');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <a class="navbar-brand" href="invocations.html"><span class="h3">AdonisTrack</span></a>
+</nav>
+
+<div id="app" class="container">
+    <div class="row">
+        <div class="mermaid">
+            sequenceDiagram
+                actor Client
+                participant Handler
+                participant StaffController
+                participant StaffService
+                participant StaffRepository
+                participant com.woozooha.adonistrack.api.AdonisTrackHttpTraceFilter as AdonisTrackHttpTraceFilter
+
+                links StaffController: {"Google": "https://www.google.com", "IntelliJ": "http://localhost:63342/api/file/src/main/java/com/woozooha/adonistrack/api/AdonisTrackHttpTraceFilter.java"}
+                links StaffService: {"JavaScript": "callback"}
+
+                note over StaffController: TX-0 begin
+
+                StaffController->>StaffService: createStaff
+                StaffService->>StaffRepository: saveAndFlush
+
+                note over StaffRepository: select ~ from staff ~
+                note over StaffRepository: update staff ~
+                note over StaffRepository: delete staff ~
+
+                StaffRepository-->>StaffService: StaffEntity
+
+                StaffService-->>StaffController: StaffId
+
+                note over StaffController: TX-0 commit
+
+                %% style StaffController fill:#ed6,stroke:#333,stroke-width:2px;
+                %% click StaffController "Tooltip"
+        </div>
+
+
+    </div>
+</div>
+
+<a href="javascript:linkTest();">link test</a>
+
+<script>
+    function linkToSource() {
+        const participantAreas = d3.selectAll('text.actor>tspan')
+            .filter(function(d, i) {
+                // console.log(d.value());
+                // return true;
+                const participantAlias = d3.select(this).text();
+                return participantAlias != 'Client' && participantAlias != 'Handler';
+            });
+        console.log(participantAreas);
+
+        participantAreas.on('click', function (i, d) {
+            console.log("haha i=" + i + ", d=" + d);
+            app.linkToSource(d3.select(this).text());
+        }).on('mouseover', function() {
+            d3.select(this).style('cursor', 'pointer');
+        }).on('mouseout', function() {
+            d3.select(this).style('cursor', 'default');
+        });
+    }
+</script>
+<script>
+    const config = {
+        startOnLoad: true,
+        theme: 'forest',
+        sequence:{
+            useMaxWidth: false,
+            showSequenceNumbers: true
+        },
+        mermaid: {
+            callback:function(id) {
+                linkTest();
+            }
+        },
+        securityLevel: 'loose',
+    };
+    mermaid.initialize(config);
+    linkTest();
+</script>
+<script type="text/javascript" src="../js/invocation.js"></script>
+</body>
+</html>

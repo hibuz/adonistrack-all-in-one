@@ -1,0 +1,50 @@
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '4.0.3'
+  id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.woozooha'
+version = '2.4.0-SNAPSHOT'
+description = 'Simple profiling tool.'
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+	set('jacksonVersion', "2.12.3")
+	set('springJclVersion', "5.2.25.RELEASE")
+	set('servletApiVersion', '4.0.1')
+	set('jsqlparserVersion', '3.2')
+	set('lombokVersion', '1.18.36')
+	set('h2Version', '2.0.202')
+	set('restAssuredVersion', '5.3.2')
+}
+
+dependencies {
+  implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+  implementation "org.springframework:spring-jcl:${springJclVersion}"
+  implementation "com.github.jsqlparser:jsqlparser:${jsqlparserVersion}"
+
+  runtimeOnly "javax.servlet:javax.servlet-api:${servletApiVersion}"
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  annotationProcessor 'org.projectlombok:lombok'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  testImplementation "com.h2database:h2"
+  testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}

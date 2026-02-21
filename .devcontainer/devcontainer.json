@@ -1,0 +1,24 @@
+{
+    "name": "Java",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "ghcr.io/devcontainers/features/java:1": {
+        "version": "17"
+      }
+    },
+    "remoteEnv": {
+      "JAVA_TOOL_OPTIONS": "-javaagent:${containerWorkspaceFolder}/adonistrack-usecase/target/agents/aspectjweaver.jar",
+    },
+    "runArgs": [
+        //"-v", "/var/run/docker.sock:/var/run/docker.sock"
+    ],
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          //"vscjava.vscode-spring-boot-dashboard",
+          //"eamodio.gitlens",
+          //"k--kato.intellij-idea-keybindings"
+        ]
+      }
+    }
+  }
