@@ -4,20 +4,21 @@
     "features": {
       "ghcr.io/devcontainers/features/java:1": {
         "version": "17"
-      }
+      },
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "24"
+      },
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "remoteEnv": {
       "JAVA_TOOL_OPTIONS": "-javaagent:${containerWorkspaceFolder}/adonistrack-usecase/target/agents/aspectjweaver.jar",
     },
-    "runArgs": [
-        //"-v", "/var/run/docker.sock:/var/run/docker.sock"
-    ],
     "customizations": {
       "vscode": {
         "extensions": [
-          //"vscjava.vscode-spring-boot-dashboard",
-          //"eamodio.gitlens",
-          //"k--kato.intellij-idea-keybindings"
+          "vscjava.vscode-spring-boot-dashboard",
+          "eamodio.gitlens",
+          "k--kato.intellij-idea-keybindings"
         ]
       }
     }

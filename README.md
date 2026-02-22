@@ -2,7 +2,7 @@
 
 ## Pre requisites
 ```
-./mvnw -pl adonistrack-versions install
+./mvnw install -N && ./mvnw -pl adonistrack-versions install
 ```
 
 ## Run the application
