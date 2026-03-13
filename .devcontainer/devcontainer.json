@@ -11,14 +11,15 @@
       "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "remoteEnv": {
-      "JAVA_TOOL_OPTIONS": "-javaagent:${containerWorkspaceFolder}/adonistrack-usecase/target/agents/aspectjweaver.jar",
+      "JAVA_TOOL_OPTIONS": "-javaagent:${containerWorkspaceFolder}/adonistrack-usecase/target/agents/aspectjweaver.jar"
     },
     "customizations": {
       "vscode": {
         "extensions": [
           "vscjava.vscode-spring-boot-dashboard",
           "eamodio.gitlens",
-          "k--kato.intellij-idea-keybindings"
+          "k--kato.intellij-idea-keybindings",
+          "bierner.markdown-mermaid"
         ]
       }
     }

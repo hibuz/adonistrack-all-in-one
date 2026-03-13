@@ -38,7 +38,7 @@ public class SecurityConfig {
     @ConditionalOnProperty(name="spring.h2.console.enabled", havingValue="true")
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize ->
-                authorize.antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/webjars/**").permitAll()
+                authorize.antMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/webjars/**").permitAll()
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers("/open/**").permitAll()
                         .antMatchers("/adonis-track/**").permitAll()
